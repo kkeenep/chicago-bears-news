@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: Chicago Bears News API
+  description: An API to fetch and email Chicago Bears news updates using NewsAPI.org
+  version: 1.0.0
+servers:
+  - url: https://newsapi.org/v2
+    description: NewsAPI Server
+paths:
+  /everything:
+    get:
+      summary: Get latest Chicago Bears news
+      description: Fetches news articles about the Chicago Bears from NewsAPI.org
+      parameters:
+        - name: q
+          in: query
+          description: Search query (fixed to 'Chicago Bears')
+          required: true
+          schema:
+            type: string
+            default: "Chicago Bears"
+        - name: apiKey
+          in: query
+          description: Your NewsAPI.org API key
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Number of articles to fetch
+          schema:
+            type: integer
+            default: 5
+        - name: from
+          in: query
+          description: Filter news by date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful response with news articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  totalResults:
+                    type: integer
+                  articles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        url:
+                          type: string
+                        source:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                        publishedAt:
+                          type: string
+                          format: date-time
+  /email:
+    post:
+      summary: Send news articles to Gmail
+      description: Sends the fetched news articles via email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: yourname@gmail.com
+                articles:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      url:
+                        type: string
+      responses:
+        '200':
+          description: Email sent successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
