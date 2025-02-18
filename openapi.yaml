@@ -66,34 +66,3 @@ paths:
                         publishedAt:
                           type: string
                           format: date-time
-  /email:
-    post:
-      summary: Send news articles to Gmail
-      description: Sends the fetched news articles via email
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  example: yourname@gmail.com
-                articles:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      title:
-                        type: string
-                      url:
-                        type: string
-      responses:
-        '200':
-          description: Email sent successfully
-        '400':
-          description: Bad request
-        '500':
-          description: Server error
