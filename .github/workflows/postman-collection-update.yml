@@ -1,1 +1,38 @@
+name: Postman Collection Auto-Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'openapi.yaml'
+jobs:
+  postman-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Fetch Postman Collection
+        uses: stcalica/postman-publish-action/actions/fetch-collection@v1.0.0
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          collection_id: 'a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
+      - name: Upload fetched collection artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: fetched-collection-json
+          path: fetched_collection.json
+     - name: Transform OpenAPI to Postman Collection
+        uses: stcalica/postman-publish-action/actions/transform-openapi-from-file@v1.0.0
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          openapi_schema_path: './openapi.yaml'
+          output_file: 'postman_collection.json'
+     - name: Update Postman Collection
+        uses: stcalica/postman-publish-action/actions/update-collection@v1.0.0
+        with:
+          postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
+          source_collection_id: ''
+          destination_collection_id: 'a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
+          source_file: 'postman_collection.json'
 
