@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Chicago Bears News
+  title: Chicago Bears News APIs
   description: This API to fetch Chicago Bears news updates using NewsAPI.org
   version: 1.0.0
 servers:
