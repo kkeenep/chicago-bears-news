@@ -11,20 +11,20 @@ jobs:
 
     steps:
       - name: Fetch Postman Collection
-        uses: stcalica/postman-publish-action/actions/fetch-collection@master
+        uses: stcalica/postman-publish-action@master
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           collection_id: '42216137-a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
 
       - name: Transform OpenAPI to Postman Collection
-        uses: stcalica/postman-publish-action/actions/transform-openapi-from-file@master
+        uses: stcalica/openapi-to-postman-collection@v1.0.0
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           openapi_schema_url: 'https://api.example.com/openapi.yaml'
           destination_collection_id: '42216137-a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
 
       - name: Update Postman Collection
-        uses: stcalica/postman-publish-action/actions/update-collection@master
+        uses: stcalica/update-collection@main
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           source_collection_id: ''
