@@ -16,7 +16,7 @@ jobs:
         uses: stcalica/postman-publish-action/actions/fetch-collection@v1.0.0
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
-          collection_id: 'a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
+          collection_id: '42216137-a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
       - name: Upload fetched collection artifact
         uses: actions/upload-artifact@v3
         with:
@@ -33,6 +33,6 @@ jobs:
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           source_collection_id: ''
-          destination_collection_id: 'a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
+          destination_collection_id: '42216137-a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
           source_file: 'postman_collection.json'
 
