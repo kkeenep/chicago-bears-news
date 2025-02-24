@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Fetch Postman Collection
-        uses: stcalica/postman-publish-action@master
+        uses: stcalica/postman-publish-action@main
         with:
           postman_api_key: ${{ secrets.POSTMAN_API_KEY }}
           collection_id: '42216137-a85d8f32-84b6-4121-83e9-1eb2c3b8b2a7'
